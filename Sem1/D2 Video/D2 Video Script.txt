@@ -1,0 +1,169 @@
+D2 Video Script
+
+
+<TITLE>
+Hello everyone, my name is Yash Nadkarni and I am 4th yeah computer science student specializing in cyber security. In this video, i shall be providing an overview of my dissertation, which is the development and evaluation of a hybrid deep learning framework that is capable of detecting phishing websites. This dissertation is supervised by Prof Azher Uddin.
+
+
+
+<PRESENTATION STRUCTURE>
+Following the structure of this presentation, I shall briefly cover the background and motivation, existing studies and their systems, the proposed framework and it evaluation as well as the development plan.
+
+
+
+<BACKGROUND>
+As our daily lives become more intertwined with the internet, phishing has increasingly become one of the most widespread cyber threats today. It sees the attacker create deceptive websites to trick users into revealing their personal information such as login credentials or financial details.
+
+Attackers mimic the layouts, color schemes and logos so that its identical enough for the user to not question its authenticity. However, every website has its own unique Uniform Resource Locator or URL, which is sure to give away its authenticity. Unfortunately, as phishing becomes more prevalent, more dynamic and sophisticated URLs have been created making it harder for existing systems to detect them.
+
+
+
+
+
+<MOTIVATION>
+As evident in the graph, there has been an alarming rise in the number of phishing attacks being reported with the first half of 2025 alone seeing over 2 million attacks, thus, highlighting the need for more adaptive approaches, which traditional systems struggle to do. 
+
+One of the key limitations of traditional systems is their inability to handle zero-day attacks. A zero day phishing attack is a phishing website that has recently been created and not yet been reported. The only known way to handle zero day attacks is to predict if the website is phishing or legitimate based off its URL.
+
+The motivation behind this dissertation is that existing systems do not integrate spatial patterns of the URL's features with temporal dependencies to make their predictions which is what the proposed framework will attempt to solve.
+
+
+
+
+
+<LIST BASED SYSTEMS>
+Existing systems consist of several different methodologies, the first of which are list based systems.
+
+Whitelists store the data only of those websites that are confirmed to be legitimate. Access is granted only to websites stored in the whitelists, the rest are considered malicious. Unfortunately, it fails to classify new legitimate websites, thus needing to be constantly updated.
+
+Blacklists are like whitelists, except they store the data of malicious websites only. While effective, it still leaves the user vulnerable to zero day attacks as the website first has to be detected before being added to a blacklist.
+
+
+
+
+
+
+<HEURISTICS & VISUAL>
+Heuristics based systems are more dynamic in the sense that they use technical features of websites to predict if the website is malicious or not, which works well against zero day attacks. However, all known heuristics based systems utilize pre determined algorithms to form distinctions instead of learning. This makes them weak in the long term as attackers can manipulate the URL's structure to bypass their filters.
+
+Visual based systems use screenshots of websites to extract visual features such as layouts and colors to find common patterns to make predictions. While effective, these systems require significant computation power. Bad layouts can also cause the system to distinguish phishing websites as legitimate.
+
+
+
+
+
+
+<MACHINE LEARNING>
+Machine learning is considered the next step in phishing detection as these systems learn complex patterns from data, capable of making strong predictions. Based off previous studies, we can see that Random Forest performs the best among traditional ML algorithms. Other studies have also created more complex systems using stacked models and genetic algorithms to achieve similar performances. While ML systems provide strong baseline accuracies, they rely heavily on manually engineered features. This combined with their inability to uncover deeper patterns limit their adaptability.
+
+
+
+
+
+
+<DEEP LEARNING>
+A subset of machine learning, deep learning systems are capable of learning deeper representations and patterns directly from data. Previous studies have found convolutional neural networks to perform the best, but these are limited in the sense that they only capture local spatial patterns.
+There is a need to also learn sequential temporal dependencies among the URL's features which can be done using a GRU model. One study saw the employment of a GRU increased the performance of a recurrent neural network from 74 to 99.18%.
+
+Among existing systems, there is a lack of hybrid models that capture both spatial patterns and temporal dependencies, thus leaving room for improvement in phishing detection.
+
+
+
+
+<PROPOSED FRAMEWORK>
+To address this gap, this dissertation proposes a hybrid deep learning framework that integrates a One Dimensional Convolutional Neural Network with a Bidirectional GRU.
+The 1D-CNN will extract the local lexical and spatial patterns from the URL's structure while the BiGRU will capture both the forward and backward temporal dependencies across the URL.
+Together, the hybrid model is capable of learning both structural and contextual information from a URL.
+
+
+
+
+
+
+<EVALUATION>
+The proposed framework shall be trained and tested on two state-of-the-art publicly available phishing datasets which are the UCI 2015 and Mendeley 2020 datasets. This ensures that the framework performs consistently across URL data of varying sizes and complexities.
+The performance shall be evaluated using Accuracy, Precision, Recall and F1-Score, which will provide insight into how well the framework detects phishing, especially compared to traditional machine learning models.
+
+
+
+
+
+<PLES>
+The development and evaluation of this project shall adhere to known professional standards while complying with any relevant data protection regulations. No human participants are involved and any data stored is purely technical with no ties to any individual. The project shall not touch upon any broader social issue.
+At the bottom are the specifications of the system on the which this project will be developed.
+
+
+
+
+
+<PROJECT PLAN>
+In order to ensure the development of this project goes as smoothly as possible, a planned timeline shall be adhered to at all times. The first few weeks will be dedicated to preparing and implementing the required models, followed by evaluation and comparative analysis. The final few weeks will cover documentation and writing the final dissertation deliverable.
+Though unlikely, all major risks that can be encountered are accounted for and mitigated with ideal strategies.
+
+
+
+<REFERENCES & THANK YOU>
+Thank you for your time.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
