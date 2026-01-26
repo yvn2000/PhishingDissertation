@@ -1,0 +1,56 @@
+{
+    "epochs": 20,
+    "batch_size": 64,
+    "n_splits": 4,
+    "dataset": "./Datasets/dataset_small.csv",
+    "gaussian_noise": 0.01,
+    "convolutional_layers": [
+        {
+            "n_filters": 128,
+            "kernel_size": 5,
+            "activation_function": "relu",
+            "padding": true,
+            "kernel_regularizer": "l2(1e-4)",
+            "batch_normalization": true,
+            "max_pooling_size": 2
+        },
+        {
+            "n_filters": 256,
+            "kernel_size": 3,
+            "activation_function": "relu",
+            "padding": true,
+            "kernel_regularizer": "l2(1e-4)",
+            "batch_normalization": true,
+            "max_pooling_size": 2
+        }
+    ],
+    "bigru_layers": [],
+    "beforeDense": "global_average_pooling",
+    "dense_layers": [
+        {
+            "n_dense": 128,
+            "activation_function": "relu",
+            "kernel_regularizer": "l2(1e-4)",
+            "batch_normalization": true,
+            "dropout": 0.4
+        }
+    ],
+    "output_layer": {
+        "n_dense": 1,
+        "function": "sigmoid"
+    },
+    "fold_1": {
+        "accuracy": 0.9364343200109125,
+        "precision": 0.9314102564102564,
+        "recall": 0.9481858522578961,
+        "f1": 0.9397231923425171,
+        "roc_auc": 0.9827654286460082
+    },
+    "cv_results": {
+        "accuracy": "0.9364 ± 0.0000",
+        "precision": "0.9314 ± 0.0000",
+        "recall": "0.9482 ± 0.0000",
+        "f1": "0.9397 ± 0.0000",
+        "roc_auc": "0.9828 ± 0.0000"
+    }
+}

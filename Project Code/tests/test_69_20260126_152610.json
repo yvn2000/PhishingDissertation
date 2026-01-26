@@ -1,0 +1,26 @@
+{
+    "dataset": "./Datasets/dataset_small.csv",
+    "epochs": 1,
+    "batch_size": 128,
+    "best_params": {
+        "nConv": 1,
+        "filters_0": 128,
+        "kernel_0": 5,
+        "pool_0": 4,
+        "n_gru": 0,
+        "n_dense": 3,
+        "dense_units_0": 192,
+        "dense_dropout_0": 0.3416271908008307,
+        "dense_units_1": 128,
+        "dense_dropout_1": 0.5651877530543428,
+        "dense_units_2": 192,
+        "dense_dropout_2": 0.5156693154679779
+    },
+    "val_metrics": {
+        "accuracy": 0.6913152210981016,
+        "precision": 0.8966898587391946,
+        "recall": 0.46258429410485097,
+        "f1": 0.6103178589366435,
+        "roc_auc": 0.8760247884230916
+    }
+}

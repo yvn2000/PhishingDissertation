@@ -5,6 +5,18 @@ Clean the data
 Handle invalid/missing/unknown values (instead of -1 for empty, use NaN or null)
 Normalize features correctly (z-score)
 Save the preprocessed dataset separately for fast reuse
+
+
+
+Note: THIS IS PROBLEMATIC
+
+We cannot use this since we are using k fold cross validation.
+
+Since this uses median and standard deviations using the validation set as well,
+it will cause data leakage. This means the validation set/data helped decide how
+the medians and stds would be represented.
+
+
 '''
 
 import pandas as pd
@@ -85,10 +97,6 @@ print(processed_df.isnull().sum().sum(), "missing values remaining")
 print(processed_df[target].value_counts())
 
 print("================= PREPROCESSED SAVED =================")
-
-
-
-
 
 
 

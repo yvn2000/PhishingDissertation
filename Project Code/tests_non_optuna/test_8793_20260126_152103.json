@@ -1,0 +1,45 @@
+{
+    "epochs": 20,
+    "batch_size": 64,
+    "n_splits": 4,
+    "dataset": "./Datasets/dataset_small.csv",
+    "gaussian_noise": 0.01,
+    "convolutional_layers": [],
+    "bigru_layers": [
+        {
+            "n_gru_units": 64,
+            "return_sequences": true,
+            "dropout": 0.3,
+            "recurrent_dropout": 0.2,
+            "attention": false,
+            "dual_pooling": true
+        }
+    ],
+    "dense_layers": [
+        {
+            "n_dense": 128,
+            "activation_function": "relu",
+            "kernel_regularizer": "l2(1e-4)",
+            "batch_normalization": true,
+            "dropout": 0.4
+        }
+    ],
+    "output_layer": {
+        "n_dense": 1,
+        "function": "sigmoid"
+    },
+    "fold_1": {
+        "accuracy": 0.8793479743554767,
+        "precision": 0.8592854529935374,
+        "recall": 0.9197337509788567,
+        "f1": 0.8884826325411335,
+        "roc_auc": 0.9498156952679272
+    },
+    "cv_results": {
+        "accuracy": "0.8793 ± 0.0000",
+        "precision": "0.8593 ± 0.0000",
+        "recall": "0.9197 ± 0.0000",
+        "f1": "0.8885 ± 0.0000",
+        "roc_auc": "0.9498 ± 0.0000"
+    }
+}

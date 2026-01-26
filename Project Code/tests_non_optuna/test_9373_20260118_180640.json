@@ -1,0 +1,88 @@
+{
+    "epochs": 5,
+    "batch_size": 32,
+    "n_splits": 3,
+    "dataset": "./Datasets/dataset_small.csv",
+    "gaussian_noise": 0.01,
+    "convolutional_layers": [
+        {
+            "n_filters": 128,
+            "kernel_size": 5,
+            "activation_function": "relu",
+            "padding": true,
+            "kernel_regularizer": "l2(1e-4)",
+            "batch_normalization": true,
+            "max_pooling_size": 2
+        },
+        {
+            "n_filters": 256,
+            "kernel_size": 3,
+            "activation_function": "relu",
+            "padding": true,
+            "kernel_regularizer": "l2(1e-4)",
+            "batch_normalization": true,
+            "max_pooling_size": 2
+        },
+        {
+            "n_filters": 512,
+            "kernel_size": 3,
+            "activation_function": "relu",
+            "padding": true,
+            "kernel_regularizer": "l2(1e-4)",
+            "batch_normalization": true,
+            "max_pooling_size": 0
+        }
+    ],
+    "bigru_layers": [
+        {
+            "n_gru_units": 128,
+            "return_sequences": true,
+            "dropout": 0.3,
+            "recurrent_dropout": 0.2,
+            "attention": true,
+            "dual_pooling": false
+        },
+        {
+            "n_gru_units": 64,
+            "return_sequences": true,
+            "dropout": 0.3,
+            "recurrent_dropout": 0.2,
+            "attention": false,
+            "dual_pooling": true
+        }
+    ],
+    "dense_layers": [
+        {
+            "n_dense": 256,
+            "activation_function": "relu",
+            "kernel_regularizer": "l2(1e-4)",
+            "batch_normalization": true,
+            "dropout": 0.5
+        },
+        {
+            "n_dense": 128,
+            "activation_function": "relu",
+            "kernel_regularizer": "l2(1e-4)",
+            "batch_normalization": true,
+            "dropout": 0.4
+        }
+    ],
+    "output_layer": {
+        "n_dense": 1,
+        "function": "sigmoid"
+    },
+    "fold_1": {
+        "accuracy": 0.9372857946698041,
+        "precision": 0.9330443159922929,
+        "recall": 0.9480227094753328,
+        "f1": 0.9404738784229948,
+        "roc_auc": 0.9835212679454962
+    },
+    "cv_results": {
+        "accuracy": "0.9373 ± 0.0000",
+        "precision": "0.9330 ± 0.0000",
+        "recall": "0.9480 ± 0.0000",
+        "f1": "0.9405 ± 0.0000",
+        "roc_auc": "0.9835 ± 0.0000"
+    }
+}
