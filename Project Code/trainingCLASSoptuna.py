@@ -597,12 +597,12 @@ def optuna_Best(
 
 
 if __name__ == '__main__':
-
+    
     csv = "./Datasets/uci.csv"
     type="uci"
-    n_trials=2
-    epochs=1
-    batch_size=128
+    n_trials=30
+    epochs=20
+    batch_size=64
     test_size=0.3
 
     jsonRes = optuna_Best(
@@ -616,7 +616,9 @@ if __name__ == '__main__':
     )
 
 
-    '''
+
+
+
 
     csv = "./Datasets/dataset_small.csv"
     type="mendeley"
@@ -638,6 +640,32 @@ if __name__ == '__main__':
 
 
 
+
+
+
+    csv = "./Datasets/uci.csv"
+    type="uci"
+    n_trials=30
+    epochs=20
+    batch_size=128
+    test_size=0.3
+
+    jsonRes = optuna_Best(
+        run_name=f"uci_{epochs}epochs_{batch_size}batch_{n_trials}trials",
+        csv_path = csv,
+        type=type,
+        epochs=epochs,
+        batch_size=batch_size,
+        n_trials=n_trials,
+        test_size=test_size
+    )
+
+
+
+
+
+
+
     csv = "./Datasets/dataset_small.csv"
     type="mendeley"
     n_trials=30
@@ -655,7 +683,12 @@ if __name__ == '__main__':
         test_size=test_size
     )
 
-    '''
+
+
+
+
+
+    
 
 
 
