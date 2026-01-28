@@ -1,0 +1,34 @@
+{
+    "dataset": "./Datasets/uci.csv",
+    "epochs": 20,
+    "batch_size": 64,
+    "best_params": {
+        "nConv": 3,
+        "pool_0": 3,
+        "filters_0": 64,
+        "kernel_0": 5,
+        "pool_1": 3,
+        "filters_1": 192,
+        "kernel_1": 3,
+        "pool_2": 2,
+        "filters_2": 128,
+        "kernel_2": 5,
+        "n_gru": 2,
+        "gru_units_0": 256,
+        "gru_dropout_0": 0.2849112802075906,
+        "gru_rec_dropout_0": 0.19349346997014727,
+        "gru_units_1": 256,
+        "gru_dropout_1": 0.38795706663595386,
+        "gru_rec_dropout_1": 0.19152806628409164,
+        "n_dense": 1,
+        "dense_units_0": 256,
+        "dense_dropout_0": 0.2054367301776289
+    },
+    "val_metrics": {
+        "accuracy": 0.968947844437745,
+        "precision": 0.9658119658119658,
+        "recall": 0.9788846778559827,
+        "f1": 0.9723043828986286,
+        "roc_auc": 0.9962472698879227
+    }
+}

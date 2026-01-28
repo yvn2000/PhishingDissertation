@@ -1,0 +1,45 @@
+{
+    "trial_number": 9,
+    "params": {
+        "nConv": 1,
+        "pool_0": 3,
+        "filters_0": 64,
+        "kernel_0": 5,
+        "n_gru": 0,
+        "n_dense": 1,
+        "dense_units_0": 64,
+        "dense_dropout_0": 0.3518434977997498
+    },
+    "best_val_accuracy": 0.8895077705383301,
+    "batch_size": 64,
+    "epochs": 20,
+    "epochs_ran": 20,
+    "model_structure": {
+        "convolutional_layers": [
+            {
+                "n_filters": 64,
+                "kernel_size": 5,
+                "activation_function": "relu",
+                "padding": true,
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "max_pooling_size": 3
+            }
+        ],
+        "bigru_layers": [],
+        "beforeDense": "global_average_pooling",
+        "dense_layers": [
+            {
+                "n_dense": 64,
+                "activation_function": "relu",
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "dropout": 0.3518434977997498
+            }
+        ],
+        "output_layer": {
+            "n_dense": 1,
+            "function": "sigmoid"
+        }
+    }
+}

@@ -1,0 +1,67 @@
+{
+    "trial_number": 1,
+    "params": {
+        "nConv": 1,
+        "pool_0": 3,
+        "filters_0": 64,
+        "kernel_0": 7,
+        "n_gru": 2,
+        "gru_units_0": 64,
+        "gru_dropout_0": 0.30187917849926776,
+        "gru_rec_dropout_0": 0.21363610078978007,
+        "gru_units_1": 192,
+        "gru_dropout_1": 0.16764636415589718,
+        "gru_rec_dropout_1": 0.12773505388271053,
+        "n_dense": 1,
+        "dense_units_0": 192,
+        "dense_dropout_0": 0.3142484877516989
+    },
+    "best_val_accuracy": 0.942116379737854,
+    "batch_size": 128,
+    "epochs": 20,
+    "epochs_ran": 20,
+    "model_structure": {
+        "convolutional_layers": [
+            {
+                "n_filters": 64,
+                "kernel_size": 7,
+                "activation_function": "relu",
+                "padding": true,
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "max_pooling_size": 0
+            }
+        ],
+        "bigru_layers": [
+            {
+                "n_gru_units": 64,
+                "return_sequences": true,
+                "dropout": 0.30187917849926776,
+                "recurrent_dropout": 0.21363610078978007,
+                "attention": false,
+                "dual_pooling": false
+            },
+            {
+                "n_gru_units": 192,
+                "return_sequences": false,
+                "dropout": 0.16764636415589718,
+                "recurrent_dropout": 0.12773505388271053,
+                "attention": false,
+                "dual_pooling": false
+            }
+        ],
+        "dense_layers": [
+            {
+                "n_dense": 192,
+                "activation_function": "relu",
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "dropout": 0.3142484877516989
+            }
+        ],
+        "output_layer": {
+            "n_dense": 1,
+            "function": "sigmoid"
+        }
+    }
+}

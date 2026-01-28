@@ -1,0 +1,69 @@
+{
+    "trial_number": 12,
+    "params": {
+        "nConv": 3,
+        "pool_0": 3,
+        "filters_0": 192,
+        "kernel_0": 5,
+        "pool_1": 2,
+        "filters_1": 256,
+        "kernel_1": 5,
+        "pool_2": 2,
+        "filters_2": 128,
+        "kernel_2": 5,
+        "n_gru": 0,
+        "n_dense": 1,
+        "dense_units_0": 256,
+        "dense_dropout_0": 0.31658127460241847
+    },
+    "best_val_accuracy": 0.9689478278160095,
+    "batch_size": 64,
+    "epochs": 20,
+    "epochs_ran": 16,
+    "model_structure": {
+        "convolutional_layers": [
+            {
+                "n_filters": 192,
+                "kernel_size": 5,
+                "activation_function": "relu",
+                "padding": true,
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "max_pooling_size": 3
+            },
+            {
+                "n_filters": 256,
+                "kernel_size": 5,
+                "activation_function": "relu",
+                "padding": true,
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "max_pooling_size": 2
+            },
+            {
+                "n_filters": 128,
+                "kernel_size": 5,
+                "activation_function": "relu",
+                "padding": true,
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "max_pooling_size": 2
+            }
+        ],
+        "bigru_layers": [],
+        "beforeDense": "global_average_pooling",
+        "dense_layers": [
+            {
+                "n_dense": 256,
+                "activation_function": "relu",
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "dropout": 0.31658127460241847
+            }
+        ],
+        "output_layer": {
+            "n_dense": 1,
+            "function": "sigmoid"
+        }
+    }
+}

@@ -132,8 +132,14 @@ class Train:
                 #print()
                 break
             else:
-                self.model = MaxPooling1D(pool_size=layersConv[i][5])(self.model)
-                layerJSON['max_pooling_size'] = layersConv[i][5]
+                current_length = self.model.shape[1]  # sequence length
+                pool_size = min(layersConv[i][5], current_length)
+                self.model = MaxPooling1D(pool_size=pool_size)(self.model)
+                layerJSON['max_pooling_size'] = pool_size
+
+                #self.model = MaxPooling1D(pool_size=layersConv[i][5])(self.model)
+                #layerJSON['max_pooling_size'] = layersConv[i][5]
+
                 #print(f"MaxPooling1D(pool_size={layersConv[i][5]})(self.model)")
             
             #print(layerJSON)
@@ -386,108 +392,119 @@ def optuna_Best(
 
     def objective(trial):
 
-        print()
-        print(f"Trial {trial.number} started")
+        try:
+            print()
+            print(f"Trial {trial.number} started")
 
-        modelX = Train((X_train.shape[1], 1))
+            modelX = Train((X_train.shape[1], 1))
+            
+            #modelX.addGaussianNoise(0.01)          #no noise for trials, add in for final resulting model
+
+            # ----- CNN -----
+            nConv = trial.suggest_int("nConv", 1, 3)
+            layersConv = []
+
+            for i in range(nConv):
+                pool_size = trial.suggest_int(f"pool_{i}", 2, min(4, X_train.shape[1] // 2))
+                layersConv.append([
+                    trial.suggest_int(f"filters_{i}", 64, 256, step=64),
+                    trial.suggest_int(f"kernel_{i}", 3, 7, step=2),
+                    "relu",
+                    "same",
+                    l2(1e-4),
+                    pool_size
+                ])
+
+            print("CNN suggested")
+
+            # ----- BiGRU -----
+            n_gru = trial.suggest_int("n_gru", 0, 2)
+            layersBiGRU = []
+
+            for i in range(n_gru):
+                layersBiGRU.append([
+                    trial.suggest_int(f"gru_units_{i}", 64, 256, step=64),
+                    i < n_gru - 1,
+                    trial.suggest_float(f"gru_dropout_{i}", 0.1, 0.4),
+                    trial.suggest_float(f"gru_rec_dropout_{i}", 0.1, 0.3),
+                    False
+                ])
+
+            print("BiGRU suggested")
+
+            modelX.addLayers(layersConv, layersBiGRU, dualPooling=True)
+
+            # ----- Dense -----
+            n_dense = trial.suggest_int("n_dense", 1, 3)
+            layersDense = []
+
+            for i in range(n_dense):
+                layersDense.append([
+                    trial.suggest_int(f"dense_units_{i}", 64, 256, step=64),
+                    "relu",
+                    l2(1e-4),
+                    trial.suggest_float(f"dense_dropout_{i}", 0.2, 0.6)
+                ])
+
+            print("Dense Layers suggested")
+
+            modelX.addDenseLayers(layersDense)
+            modelX.addOutputLayer([1, "sigmoid"])
+            modelX.compileModel()
+
+            print("Suggested model compiled")
+
+            print("Started Training")
+            print(f"Conv Layers: {nConv}, BiGRU Layers: {n_gru}, Dense Layers: {n_dense}")
+
+            history = modelX.model.fit(
+                X_train, y_train,
+                validation_data=(X_val, y_val),
+                epochs=EPOCHS,
+                batch_size=BATCH_SIZE,
+                callbacks=[
+                    tf.keras.callbacks.EarlyStopping(
+                        monitor="val_accuracy",#"val_auc",
+                        patience=5,
+                        mode="max",
+                        restore_best_weights=True
+                    )
+                ],
+                verbose=2#1
+            )
+
+            print("Suggested model trained")
+            print(f"Trial {trial.number} done")
+
+            #return max(history.history["val_auc"])
+            best_val_acc = max(history.history["val_accuracy"])
         
-        #modelX.addGaussianNoise(0.01)          #no noise for trials, add in for final resulting model
+            trial_json = {
+                "trial_number": trial.number,
+                "params": trial.params,
+                "best_val_accuracy": best_val_acc,
+                "batch_size": BATCH_SIZE,
+                "epochs": EPOCHS,
+                "epochs_ran": len(history.history["loss"]),
+                "model_structure": modelX.trainJSON
+            }
 
-        # ----- CNN -----
-        nConv = trial.suggest_int("nConv", 1, 3)
-        layersConv = []
+            write_dict_to_json(
+                trial_json,
+                directory=f"tests/optuna_trials/{RUN_NAME}",
+                acc=int(best_val_acc * 100)
+            )
 
-        for i in range(nConv):
-            layersConv.append([
-                trial.suggest_int(f"filters_{i}", 64, 256, step=64),
-                trial.suggest_int(f"kernel_{i}", 3, 7, step=2),
-                "relu",
-                "same",
-                l2(1e-4),
-                trial.suggest_int(f"pool_{i}", 2, 4)
-            ])
-
-        print("CNN suggested")
-
-        # ----- BiGRU -----
-        n_gru = trial.suggest_int("n_gru", 0, 2)
-        layersBiGRU = []
-
-        for i in range(n_gru):
-            layersBiGRU.append([
-                trial.suggest_int(f"gru_units_{i}", 64, 256, step=64),
-                i < n_gru - 1,
-                trial.suggest_float(f"gru_dropout_{i}", 0.1, 0.4),
-                trial.suggest_float(f"gru_rec_dropout_{i}", 0.1, 0.3),
-                False
-            ])
-
-        print("BiGRU suggested")
-
-        modelX.addLayers(layersConv, layersBiGRU, dualPooling=True)
-
-        # ----- Dense -----
-        n_dense = trial.suggest_int("n_dense", 1, 3)
-        layersDense = []
-
-        for i in range(n_dense):
-            layersDense.append([
-                trial.suggest_int(f"dense_units_{i}", 64, 256, step=64),
-                "relu",
-                l2(1e-4),
-                trial.suggest_float(f"dense_dropout_{i}", 0.2, 0.6)
-            ])
-
-        print("Dense Layers suggested")
-
-        modelX.addDenseLayers(layersDense)
-        modelX.addOutputLayer([1, "sigmoid"])
-        modelX.compileModel()
-
-        print("Suggested model compiled")
-
-        print("Started Training")
-        print(f"Conv Layers: {nConv}, BiGRU Layers: {n_gru}, Dense Layers: {n_dense}")
-
-        history = modelX.model.fit(
-            X_train, y_train,
-            validation_data=(X_val, y_val),
-            epochs=EPOCHS,
-            batch_size=BATCH_SIZE,
-            callbacks=[
-                tf.keras.callbacks.EarlyStopping(
-                    monitor="val_accuracy",#"val_auc",
-                    patience=5,
-                    mode="max",
-                    restore_best_weights=True
-                )
-            ],
-            verbose=2#1
-        )
-
-        print("Suggested model trained")
-        print(f"Trial {trial.number} done")
-
-        #return max(history.history["val_auc"])
-        best_val_acc = max(history.history["val_accuracy"])
-    
-        trial_json = {
-            "trial_number": trial.number,
-            "params": trial.params,
-            "best_val_accuracy": best_val_acc,
-            "batch_size": BATCH_SIZE,
-            "epochs": EPOCHS,
-            "epochs_ran": len(history.history["loss"]),
-            "model_structure": modelX.trainJSON
-        }
-
-        write_dict_to_json(
-            trial_json,
-            directory=f"tests/optuna_trials/{RUN_NAME}",
-            acc=int(best_val_acc * 100)
-        )
-
-        return best_val_acc
+            return best_val_acc
+        
+        except Exception as e:
+            print(f"Trial {trial.number} failed: {e}")
+            write_dict_to_json(
+                {"trial_number": trial.number, "error": str(e)},
+                directory=f"tests/optuna_trials/{RUN_NAME}/failures",
+                acc=0
+            )
+            raise optuna.exceptions.TrialPruned()
 
     print("Optuna study started")
     # ---------- Run Optuna ----------
