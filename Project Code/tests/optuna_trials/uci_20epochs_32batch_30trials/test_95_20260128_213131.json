@@ -1,0 +1,75 @@
+{
+    "trial_number": 6,
+    "params": {
+        "nConv": 2,
+        "pool_0": 4,
+        "filters_0": 64,
+        "kernel_0": 5,
+        "pool_1": 4,
+        "filters_1": 256,
+        "kernel_1": 5,
+        "n_gru": 0,
+        "n_dense": 3,
+        "dense_units_0": 64,
+        "dense_dropout_0": 0.4558718029046427,
+        "dense_units_1": 256,
+        "dense_dropout_1": 0.561820520877862,
+        "dense_units_2": 192,
+        "dense_dropout_2": 0.4693114690458174
+    },
+    "best_val_accuracy": 0.9526680707931519,
+    "batch_size": 32,
+    "epochs": 20,
+    "epochs_ran": 17,
+    "model_structure": {
+        "convolutional_layers": [
+            {
+                "n_filters": 64,
+                "kernel_size": 5,
+                "activation_function": "relu",
+                "padding": true,
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "max_pooling_size": 4
+            },
+            {
+                "n_filters": 256,
+                "kernel_size": 5,
+                "activation_function": "relu",
+                "padding": true,
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "max_pooling_size": 4
+            }
+        ],
+        "bigru_layers": [],
+        "beforeDense": "global_average_pooling",
+        "dense_layers": [
+            {
+                "n_dense": 64,
+                "activation_function": "relu",
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "dropout": 0.4558718029046427
+            },
+            {
+                "n_dense": 256,
+                "activation_function": "relu",
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "dropout": 0.561820520877862
+            },
+            {
+                "n_dense": 192,
+                "activation_function": "relu",
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "dropout": 0.4693114690458174
+            }
+        ],
+        "output_layer": {
+            "n_dense": 1,
+            "function": "sigmoid"
+        }
+    }
+}
