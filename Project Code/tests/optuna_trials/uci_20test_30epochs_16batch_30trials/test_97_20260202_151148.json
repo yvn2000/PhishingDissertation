@@ -1,0 +1,100 @@
+{
+    "trial_number": 1,
+    "params": {
+        "nConv": 3,
+        "pool_0": 3,
+        "filters_0": 192,
+        "kernel_0": 5,
+        "pool_1": 2,
+        "filters_1": 128,
+        "kernel_1": 5,
+        "pool_2": 4,
+        "filters_2": 256,
+        "kernel_2": 3,
+        "n_gru": 2,
+        "gru_units_0": 128,
+        "gru_dropout_0": 0.16314922538233997,
+        "gru_rec_dropout_0": 0.22935692969884103,
+        "gru_units_1": 192,
+        "gru_dropout_1": 0.1634664898896806,
+        "gru_rec_dropout_1": 0.2002817467755966,
+        "n_dense": 2,
+        "dense_units_0": 256,
+        "dense_dropout_0": 0.2137352675850448,
+        "dense_units_1": 256,
+        "dense_dropout_1": 0.4891219990852987
+    },
+    "best_val_accuracy": 0.9715061187744141,
+    "batch_size": 16,
+    "epochs": 30,
+    "epochs_ran": 17,
+    "model_structure": {
+        "convolutional_layers": [
+            {
+                "n_filters": 192,
+                "kernel_size": 5,
+                "activation_function": "relu",
+                "padding": true,
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "max_pooling_size": 3
+            },
+            {
+                "n_filters": 128,
+                "kernel_size": 5,
+                "activation_function": "relu",
+                "padding": true,
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "max_pooling_size": 2
+            },
+            {
+                "n_filters": 256,
+                "kernel_size": 3,
+                "activation_function": "relu",
+                "padding": true,
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "max_pooling_size": 0
+            }
+        ],
+        "bigru_layers": [
+            {
+                "n_gru_units": 128,
+                "return_sequences": true,
+                "dropout": 0.16314922538233997,
+                "recurrent_dropout": 0.22935692969884103,
+                "attention": false,
+                "dual_pooling": false
+            },
+            {
+                "n_gru_units": 192,
+                "return_sequences": false,
+                "dropout": 0.1634664898896806,
+                "recurrent_dropout": 0.2002817467755966,
+                "attention": false,
+                "dual_pooling": false
+            }
+        ],
+        "dense_layers": [
+            {
+                "n_dense": 256,
+                "activation_function": "relu",
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "dropout": 0.2137352675850448
+            },
+            {
+                "n_dense": 256,
+                "activation_function": "relu",
+                "kernel_regularizer": "l2(1e-4)",
+                "batch_normalization": true,
+                "dropout": 0.4891219990852987
+            }
+        ],
+        "output_layer": {
+            "n_dense": 1,
+            "function": "sigmoid"
+        }
+    }
+}

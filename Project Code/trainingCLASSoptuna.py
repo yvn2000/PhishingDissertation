@@ -568,10 +568,10 @@ def optuna_Best(
         X_train, y_train,
         validation_data=(X_val, y_val),
         epochs=EPOCHS,
-        batch_size=128,
+        batch_size=BATCH_SIZE,
         callbacks=[
             tf.keras.callbacks.EarlyStopping(
-                monitor="val_auc",
+                monitor="val_loss",
                 patience=10,
                 mode="max",
                 restore_best_weights=True
@@ -621,10 +621,44 @@ if __name__ == '__main__':
     n_trials=30
     epochs=30
     batch_size=16
-    test_size=0.3
+    test_size=0.2
 
     jsonRes = optuna_Best(
-        run_name=f"uci_{epochs}epochs_{batch_size}batch_{n_trials}trials",
+        run_name=f"uci_{int(test_size*100)}test_{epochs}epochs_{batch_size}batch_{n_trials}trials",
+        csv_path = csv,
+        type=type,
+        epochs=epochs,
+        batch_size=batch_size,
+        n_trials=n_trials,
+        test_size=test_size
+    )
+
+    csv = "./Datasets/uci.csv"
+    type="uci"
+    n_trials=30
+    epochs=30
+    batch_size=32
+    test_size=0.2
+
+    jsonRes = optuna_Best(
+        run_name=f"uci_{int(test_size*100)}test_{epochs}epochs_{batch_size}batch_{n_trials}trials",
+        csv_path = csv,
+        type=type,
+        epochs=epochs,
+        batch_size=batch_size,
+        n_trials=n_trials,
+        test_size=test_size
+    )
+
+    csv = "./Datasets/uci.csv"
+    type="uci"
+    n_trials=30
+    epochs=30
+    batch_size=64
+    test_size=0.2
+
+    jsonRes = optuna_Best(
+        run_name=f"uci_{int(test_size*100)}test_{epochs}epochs_{batch_size}batch_{n_trials}trials",
         csv_path = csv,
         type=type,
         epochs=epochs,
@@ -639,10 +673,44 @@ if __name__ == '__main__':
     n_trials=30
     epochs=30
     batch_size=16
-    test_size=0.3
+    test_size=0.2
 
     jsonRes = optuna_Best(
-        run_name=f"mendeleySmall_{epochs}epochs_{batch_size}batch_{n_trials}trials",
+        run_name=f"mendeleySmall_{int(test_size*100)}test_{epochs}epochs_{batch_size}batch_{n_trials}trials",
+        csv_path = csv,
+        type=type,
+        epochs=epochs,
+        batch_size=batch_size,
+        n_trials=n_trials,
+        test_size=test_size
+    )
+
+    csv = "./Datasets/dataset_small.csv"
+    type="mendeley"
+    n_trials=30
+    epochs=30
+    batch_size=32
+    test_size=0.2
+
+    jsonRes = optuna_Best(
+        run_name=f"mendeleySmall_{int(test_size*100)}test_{epochs}epochs_{batch_size}batch_{n_trials}trials",
+        csv_path = csv,
+        type=type,
+        epochs=epochs,
+        batch_size=batch_size,
+        n_trials=n_trials,
+        test_size=test_size
+    )
+
+    csv = "./Datasets/dataset_small.csv"
+    type="mendeley"
+    n_trials=30
+    epochs=30
+    batch_size=64
+    test_size=0.2
+
+    jsonRes = optuna_Best(
+        run_name=f"mendeleySmall_{int(test_size*100)}test_{epochs}epochs_{batch_size}batch_{n_trials}trials",
         csv_path = csv,
         type=type,
         epochs=epochs,
@@ -657,10 +725,44 @@ if __name__ == '__main__':
     n_trials=30
     epochs=30
     batch_size=16
-    test_size=0.3
+    test_size=0.2
 
     jsonRes = optuna_Best(
-        run_name=f"mendeleyFull_{epochs}epochs_{batch_size}batch_{n_trials}trials",
+        run_name=f"mendeleyFull_{int(test_size*100)}test_{epochs}epochs_{batch_size}batch_{n_trials}trials",
+        csv_path = csv,
+        type=type,
+        epochs=epochs,
+        batch_size=batch_size,
+        n_trials=n_trials,
+        test_size=test_size
+    )
+
+    csv = "./Datasets/dataset_full.csv"
+    type="mendeley"
+    n_trials=30
+    epochs=30
+    batch_size=32
+    test_size=0.2
+
+    jsonRes = optuna_Best(
+        run_name=f"mendeleyFull_{int(test_size*100)}test_{epochs}epochs_{batch_size}batch_{n_trials}trials",
+        csv_path = csv,
+        type=type,
+        epochs=epochs,
+        batch_size=batch_size,
+        n_trials=n_trials,
+        test_size=test_size
+    )
+
+    csv = "./Datasets/dataset_full.csv"
+    type="mendeley"
+    n_trials=30
+    epochs=30
+    batch_size=64
+    test_size=0.2
+
+    jsonRes = optuna_Best(
+        run_name=f"mendeleyFull_{int(test_size*100)}test_{epochs}epochs_{batch_size}batch_{n_trials}trials",
         csv_path = csv,
         type=type,
         epochs=epochs,
