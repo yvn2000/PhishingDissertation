@@ -615,7 +615,7 @@ def optuna_Best(
 
 if __name__ == '__main__':
 
-
+    '''
     csv = "./Datasets/uci.csv"
     type="uci"
     n_trials=30
@@ -718,6 +718,7 @@ if __name__ == '__main__':
         n_trials=n_trials,
         test_size=test_size
     )
+    '''
 
 
     csv = "./Datasets/dataset_full.csv"
